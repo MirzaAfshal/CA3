@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>CA3</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  </head>
+  <style>
+    #backbtn:hover{
+      cursor: pointer;
+      fill: brown;
+    }
+    body{
+      background: #e4d0d0
+    }
+  </style>
+  <body>
+    <div class="container-fluid" style="margin-top:20px;">
+
+      <div class="">
+
+        <div id="Section1">
+          <form id="BillForm" enctype="multipart/form-data">
+
+            <div class="text-center"> <h3 class="p-2 font-weight-bold">Student ID</h3> </div>
+  
+            <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">No Units</label>
+              <div class="col-sm-10"> <input name="units" type="text"  required class="form-control" ></div>
+            </div>
+  
+            <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">No Days</label>
+              <div class="col-sm-10"><input name="days" type="text" required  class="form-control" > </div>
+            </div>
+  
+            <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">VAT</label>
+              <div class="col-sm-10"> <input name="Vatno" type="text" required value="13.5%"  readonly class="form-control" > </div>
+            </div>
+  
+            <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">SC </label>
+              <div class="col-sm-10"> <input name="Sc" type="text" required value="4 cents per day" readonly class="form-control" > </div>
+            </div>
+  
+            <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">Unit Price </label>
+              <div class="col-sm-10"> <input name="PricePerUnit" required type="text" value="20 cents per unit"  readonly class="form-control"> </div>
+            </div>
+  
+            <div class="mb-3 row d-flex justify-content-center">
+              <button style="background: #c7c7c7; box-shadow: 1px 1px #adb7c0; border: #c7c7c7;" type="submit" class="btn btn-primary w-25 btn-dark">Calculate Bill</button>
+            </div>
+            
+        </form>
+        </div>
+
+        <div id="Section2" style="display: none;">
+          <div class="pb-5"> 
+            
+              <svg id="backbtn" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+                <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+              </svg>
+
+          </div>
+          <h5>Number of Units: <span id="NOfUnits"></span> </h5>
+          <h5>Billing Period (Days): <span id="BillPerid" ></span> </h5>
+          <h5>Ammount of  Bill without VAT: <span id="WithoutVAT" ></span> </h5>
+          <h5>Including VAT: <span id="IncludingVAT" ></span> </h5>
+          <br/>
+          <h5><strong>Total Bill: </strong><span id="TotalBill" ></span> </h5>
+        </div>
+
+      </div>
+
+
+
+
+    </div>
+  <script>
+    var data;
+    document.getElementById("BillForm").addEventListener("submit", (e)=>{  
+      let formElemnts = new Array(...e.target.elements); 
+
+      data =  (formElemnts.map( (e)=>{ 
+        if (e.name){ 
+          let inputValue = parseFloat(e.value.trim());
+          return [e.name, inputValue ? parseFloat(e.value.trim()) : 0  ]} 
+        })).filter( (e)=>{ 
+          if(e){return e} 
+      })
+
+      document.getElementById("Section2").style.display="block"
+      document.getElementById("Section1").style.display="none"
+      console.log(data)
+      let values =  data.map(values => {
+        return values[1]
+      })
+      let units = values[0];
+      let days = values[1];
+      let billWithOutVat = units * (values [4] / 100) + days * (values [3] / 100)
+      let billWithVat = billWithOutVat + (billWithOutVat * (13.5 / 100))
+      console.log('check the result ->', billWithOutVat.toFixed(2), billWithVat.toFixed(2))
+      document.getElementById("NOfUnits").innerText = units;
+      document.getElementById("BillPerid").innerText= days;
+      document.getElementById("WithoutVAT").innerText= units +"*" +(values [4] / 100) +"+"+ days +"*"+ (values [3] / 100)+"="+ billWithOutVat.toFixed(2);
+      document.getElementById("IncludingVAT").innerText= billWithOutVat +"+"+ (billWithOutVat +"*"+ (13.5 / 100))+ "=" +billWithVat.toFixed(2);
+      document.getElementById("TotalBill").innerText = (billWithOutVat+billWithVat).toFixed(2)
+      e.preventDefault();
+    });
+    document.getElementById("backbtn").addEventListener("click",(e)=>{
+      document.getElementById("Section2").style.display="none"
+      document.getElementById("Section1").style.display="block"
+    })
+
+  </script>
+  </body>
+</html>
