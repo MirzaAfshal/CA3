@@ -9,11 +9,12 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\""
+    "pack": "build --dir",
+    "lint": "echo \"No linting configured\"",
+    "dist": "electron-builder"
   },
   "keywords": [],
-  "author": {
-  },
+  "author": {},
   "license": "MIT",
   "config": {
     "forge": {
@@ -42,6 +43,32 @@
       ]
     }
   },
+  "build": {
+    "appId": "yourappid",
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "NSIS"
+    }
+  },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0"
   },
@@ -51,6 +78,7 @@
     "@electron-forge/maker-rpm": "^6.0.0-beta.63",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
     "@electron-forge/maker-zip": "^6.0.0-beta.63",
-    "electron": "18.2.0"
+    "electron": "18.2.0",
+    "electron-builder": "^23.0.3"
   }
 }

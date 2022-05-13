@@ -1,0 +1,25 @@
+#backbtn:hover{
+    cursor: pointer;
+    fill: brown;
+}
+body{
+    background: #e4d0d0
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+td, th {
+    border: 1px solid #3f2f2f;
+    text-align: center;
+    padding: 8px;
+}
+#Section2{
+    display: none;
+}
+#resetBtnWrap{
+    display: flex;
+    justify-content: center;
+}
+button:focus {outline:0;}
