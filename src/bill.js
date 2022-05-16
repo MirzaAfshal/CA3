@@ -13,6 +13,7 @@ document.getElementById("BillForm").addEventListener("submit", (e)=>{
         if(e){return e} 
     })
     
+    document.getElementById("resetBtn").style.display="block"
     // make the section 2 visible after hiting on calculate button
     document.getElementById("Section2").style.display="block"
     console.log(data)
@@ -38,6 +39,7 @@ document.getElementById("BillForm").addEventListener("submit", (e)=>{
 // event handler for reset button
 document.getElementById("resetBtn").addEventListener("click",(e)=>{
     document.getElementById("Section2").style.display="none";
+    document.getElementById("resetBtn").style.display="none"
     document.getElementById("numofunits").value= '';
     document.getElementById("numofdays").value= '';
 })
